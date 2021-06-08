@@ -1,11 +1,11 @@
 #整数翻转
 int reverse(int x){
-     long tr=0;
+     long tr=0;         //转换的数值可能超限，所以先定义一个大一点的
     while(x!=0){
-        tr=tr*10+x%10;
+        tr=tr*10+x%10;  //升位和降位同时在循环里进行
         x/=10;
     }
-    if((int)tr!=tr)
+    if((int)tr!=tr)     //强制转换的数值与之前的数值判断，灵魂之处
       return 0;
     else
       return tr;
