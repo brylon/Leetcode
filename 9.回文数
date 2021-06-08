@@ -1,0 +1,24 @@
+/*
+
+给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false 。
+
+回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。例如，121 是回文，而 123 不是。
+*/
+bool isPalindrome(int x){
+    long num=0;
+    int k=x;
+    if(x<0)            //小于10的都不是
+        return false;
+    else if(x==0)      //判断条件还可以为x/10==0,小于10的都属于回文数
+        return true;
+    else{                      //翻转，翻转得到的数字判断与之前的数字是否相等，可以得到是否是回文数
+        while(k){
+            num=num*10+k%10;
+            k/=10;
+        }
+        if(num==x)
+            return true;
+        else
+            return false;
+    }
+}
