@@ -1,0 +1,12 @@
+#整数翻转
+int reverse(int x){
+     long tr=0;
+    while(x!=0){
+        tr=tr*10+x%10;
+        x/=10;
+    }
+    if((int)tr!=tr)
+      return 0;
+    else
+      return tr;
+}
