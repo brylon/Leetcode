@@ -1,0 +1,56 @@
+/*
+使用while循环，从第一个罗马数字开始，如果小于后面的一个数字，则总数减去前面的小的数字，加上后面的大的罗马数字，字符游标后移两位；
+如果前数大于等于后面的数，则总数加上前面这个数字，不对后面这个数字进行操作，游标后移一位。
+*/
+int value(char s){      //判断每一个字符所代表的数值
+    switch (s) {
+        case 'I':
+            return 1;
+            break;
+        case 'V':
+            return 5;
+            break;
+        case 'X':
+            return 10;
+            break;
+        case 'L':
+            return 50;
+            break;
+        case 'C':
+            return 100;
+            break;
+        case 'D':
+            return 500;
+            break;
+        case 'M':
+            return 1000;
+            break;
+        default:
+            return 0;
+            break;
+    }
+    return 0;
+}
+int romanToInt(char * s){
+    int l=strlen(s);
+    int sum=0;
+    if(l==1){
+        return value(s[0]);
+    }else{
+        int i=0;
+        while(i<l){
+            int prenum= value(s[i]);
+            int num= value(s[i+1]);
+            if(prenum<num){
+                sum-=prenum;
+                sum+=num;
+                i+=2;
+            }
+            else{
+                sum+=prenum;
+                i++;
+            }
+        }
+        return sum;
+    }
+}
