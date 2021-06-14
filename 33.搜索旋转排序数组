@@ -1,0 +1,57 @@
+整数数组 nums 按升序排列，数组中的值 互不相同 。
+
+在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转，使数组变为 [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。
+
+给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。
+
+ 
+
+示例 1：
+
+输入：nums = [4,5,6,7,0,1,2], target = 0
+输出：4
+示例 2：
+
+输入：nums = [4,5,6,7,0,1,2], target = 3
+输出：-1
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/search-in-rotated-sorted-array
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+### 解题思路
+先判断有序的一边，通过if语句进入有序的里面，判断target是否在这个有序的一半里面，没有的话，大数或者小数的游标移到中间。
+循环判断哪边是有序的一边，然后再判断这个target是否在这个有序的一边里面，对它进行查找范围的缩小，相当于变相类型的二分查找吧
+
+### 代码
+
+```c
+int search(int* nums, int numsSize, int target){
+    int lo=0,hi=numsSize-1;
+    while(lo<=hi){
+        int mid=(lo+hi)/2;
+        if(nums[mid]<nums[hi]){//数组的右边是有序的
+           if(target==nums[mid])
+              return mid;
+            else if(target==nums[hi])
+                 return hi;
+            else if(target>nums[mid]&&target<nums[hi]){
+                lo=mid+1;
+            }
+            else
+               hi=mid-1;
+        }
+        else{     //数组的左边是有序的
+            if(target==nums[mid])
+               return mid;
+            else if(target==nums[lo])
+                 return lo;
+            else if(target>nums[lo]&&target<nums[mid])
+                 hi=mid-1;
+            else
+                 lo=mid+1;
+        }
+    }
+    return -1;
+}
+```
