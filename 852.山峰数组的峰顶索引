@@ -1,0 +1,54 @@
+符合下列属性的数组 arr 称为 山脉数组 ：
+arr.length >= 3
+存在 i（0 < i < arr.length - 1）使得：
+arr[0] < arr[1] < ... arr[i-1] < arr[i]
+arr[i] > arr[i+1] > ... > arr[arr.length - 1]
+给你由整数组成的山脉数组 arr ，返回任何满足 arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1] 的下标 i 。
+
+ 
+
+示例 1：
+
+输入：arr = [0,1,0]
+输出：1
+示例 2：
+
+输入：arr = [0,2,1,0]
+输出：1
+示例 3：
+
+输入：arr = [0,10,5,2]
+输出：1
+示例 4：
+
+输入：arr = [3,4,5,1]
+输出：2
+示例 5：
+
+输入：arr = [24,69,100,99,79,78,67,36,26,19]
+输出：2
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/peak-index-in-a-mountain-array
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+### 解题思路
+直接使用二分查找，判断是在数值山峰顶端的左边还是右边，再进行下一步做法，刚开始出错是在对于right的数值更改上，根据官方给的样例，出现了right=left=0,这时候，mid=-1,出现了执行出错。下次应该更加细心
+
+### 代码
+
+```c
+int peakIndexInMountainArray(int* arr, int arrSize){
+    int left=0,right=arrSize-1;
+    while(left<=right){
+        int mid=left+(right-left)/2;
+        if(arr[mid]<arr[mid+1]&&arr[mid]>arr[mid-1])
+           left=mid+1;
+        else if(arr[mid]<arr[mid-1]&&arr[mid]>arr[mid+1])
+           right=mid;
+        else 
+           return mid;
+    }
+    return 0;
+}
+```
